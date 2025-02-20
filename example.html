@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flipkart Clone</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f1f3f6;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #fff;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2874f0;
+        }
+
+        .search-bar {
+            flex: 1;
+            margin: 0 20px;
+            display: flex;
+            align-items: center;
+            background: #f1f3f6;
+            padding: 8px;
+            border-radius: 5px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            border: none;
+            outline: none;
+            padding: 8px;
+            background: transparent;
+        }
+
+        .search-bar button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: black;
+            font-size: 14px;
+            position: relative;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            min-width: 160px;
+            box-shadow: rgba(0, 0, 0, 0.2);
+            padding: 10px;
+            z-index: 1;
+            top: 100%;
+            right: 0;
+        }
+
+        .dropdown-content a {
+            display: block;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        
+        .categories {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            background-color: #fff;
+            border-bottom: 1px solid white;
+        }
+
+        .category {
+            text-align: center;
+        }
+
+        .category img {
+            width: 50px;
+            height: 50px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .category a {
+            display: block;
+            text-decoration: none;
+            color: black;
+            font-size: 14px;
+            margin-top: 5px;
+            font-weight: 500;
+        }
+
+        .category a:hover {
+            color: #2874f0;
+        }
+
+        
+        .carousel {
+            position: relative;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .carousel-images {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-images img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+
+        .prev { left: 10px; }
+        .next { right: 10px; }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .dots-container {
+            text-align: center;
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .active {
+            background-color: #2874f0;
+        }
+
+        .electronics-section {
+            display: flex;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            margin:10px;
+        }
+
+        .products-container {
+            flex: 3;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding-bottom: 10px;
+        }
+
+
+        .products-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .product-list {
+            display: flex;
+            gap: 20px;
+        }
+
+        .product {
+            display: inline-block;
+            width: 150px;
+            text-align: center;
+            background: white;
+        }
+
+        .product img {
+            width: 100%;
+            height: 50%;
+            border-radius: 5px;
+        }
+
+        .product p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .product a {
+            text-decoration: none; 
+            color: black; 
+        }
+
+        .product .price {
+            font-weight: bold;
+            color: #000;
+        }
+
+        .product .offer {
+            color: green;
+            font-weight: bold;
+        }
+        .ad-banner {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-left: 20px;
+        }
+
+        .ad-banner img {
+            width: 100%;
+            max-width: 200px;
+            border-radius: 5px;
+        }
+        .product:hover{
+            transform: translate(-10px);
+
+        }
+        .footer {
+            background-color: #172337;
+            color: white;
+            padding: 20px 0;
+            font-size: 14px;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+            margin: 10px;
+        }
+
+        .footer-column h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .footer-column a {
+            display: block;
+            color: #b0bec5;
+            text-decoration: none;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .footer-column a:hover {
+            color: #ffffff;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .social-icons img {
+            width: 24px;
+            height: 24px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding: 10px;
+            background-color: #131a22;
+            color: #b0bec5;
+        }
+    </style>
+</head>
+<body style="background-color: #f0e9e9;">
+    <div class="header">
+        <div class="logo"><img src="logo.png" alt="Company Logo" width="100"></div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search for Products, Brands and More">
+            <button><img src="searchicon.png" width="10px" height="10px"></button>
+        </div>
+        <div class="nav-links">
+            <div class="dropdown">
+                <a href="#" class="login-btn"> Login ▼</a>
+                <div class="dropdown-content">
+                    <a href="profile.html">My Profile</a>
+                    <a href="flipkart.html">Flipkart Plus Zone</a>
+                    <a href="orders.html">Orders</a>
+                    <a href="wishlist.html">Wishlist</a>
+                    <a href="Rewards.html">Rewards</a>
+                    <a href="Gift.html">Gift Cards</a>
+                </div>
+            </div>
+            <a href="cart.html">🛒 Cart </a>
+            <a href="become.html">Become a Seller</a>
+        </div>
+    </div>
+
+    <div class="categories">
+        <div class="category">
+            <img src="mobiles.png" alt="Mobiles">
+            <a href="mobiles.html">Mobiles</a>
+        </div>
+        <div class="category">
+            <img src="fashion.png" alt="Fashion">
+            <a href="fashion.html">Fashion</a>
+        </div>
+        <div class="category">
+            <img src="kilos.png" alt="Kilos">
+            <a href="kilos.html">Kilos</a>
+        </div>
+        <div class="category">
+            <img src="electronics.png" alt="Electronics">
+            <a href="category.httml">Electronics</a>
+        </div>
+        <div class="category">
+            <img src="furniture.png" alt="Home & Furniture">
+            <a href="furniture.html">Home & Furniture</a>
+        </div>
+        <div class="category">
+            <img src="appliances.png" alt="Appliances">
+            <a href="appliances.html">Appliances</a>
+        </div>
+    </div>
+
+    <div class="carousel">
+        <div class="carousel-images">
+            <img src="banner1.jpg" alt="Slide 1">
+            <img src="banner2.jpg" alt="Slide 2">
+            <img src="banner3.jpg" alt="Slide 3">
+        </div>
+
+        <button class="prev" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="next" onclick="moveSlide(1)">&#10095;</button>
+
+        <div class="dots-container">
+            <span class="dot" onclick="goToSlide(0)"></span>
+            <span class="dot" onclick="goToSlide(1)"></span>
+            <span class="dot" onclick="goToSlide(2)"></span>
+        </div>
+    </div>
+
+    <div class="electronics-section">
+        <div class="products-container">
+            <h2>Best of Electronics</h2>
+            <div class="product-list">
+                <div class="product">
+                    <a href="earbuds.html">
+                        <img src="earbuds.png" alt="Earbuds">
+                        <p>Best True Wireless Headphones</p>
+                        <p class="offer">Grab Now</p>
+                    </a>
+                </div>
+                <div class="product">
+                    <a href="monitor.html">
+                        <img src="monitor.jpg" alt="Monitor">
+                        <p>Monitors</p>
+                        <p class="price">From ₹7,949</p>
+                    </a>
+                </div>
+                <div class="product">
+                    <a href="smartwatch.html">
+                        <img src="smartwatch.jpg" alt="Smartwatch">
+                        <p>boAt Smartwatches</p>
+                        <p class="price">From ₹999</p>
+                    </a>
+                </div>
+                <div class="product">
+                    <a href="bluetooth.html">
+                        <img src="bluetooth.jpg" alt="Bluetooth Speaker">
+                        <p>Best Selling Mobile S...</p>
+                        <p class="price">From ₹499*</p>
+                    </a>
+                </div>
+                <div class="product">
+                    <a href="monitor2.html">
+                        <img src="monitor2.jpg" alt="Monitor">
+                        <p>Monitor</p>
+                        <p class="price">From ₹8,279</p>
+                    </a>
+                </div>
+                <div class="product">
+                    <a href="shaver.html">
+                        <img src="shavers.jpg" alt="Shaver">
+                        <p>Best of Shavers</p>
+                        <p class="price">From ₹1,649</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="ad-banner">
+            <a href="https://www.airindia.com">
+                <img src="airindia.jpg" alt="Air India Offer">
+            </a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>About</h3>
+                <a href="#">Contact Us</a>
+                <a href="#">About Us</a>
+                <a href="#">Careers</a>
+                <a href="#">Flipkart Stories</a>
+                <a href="#">Press</a>
+            </div>
+            
+            <div class="footer-column">
+                <h3>Help</h3>
+                <a href="#">Payments</a>
+                <a href="#">Shipping</a>
+                <a href="#">Cancellation & Returns</a>
+                <a href="#">FAQ</a>
+                <a href="#">Report Infringement</a>
+            </div>
+    
+            <div class="footer-column">
+                <h3>Policy</h3>
+                <a href="#">Return Policy</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Security</a>
+                <a href="#">Privacy</a>
+                <a href="#">Sitemap</a>
+            </div>
+    
+            <div class="footer-column">
+                <h3>Social</h3>
+                <div class="social-icons">
+                    <a href="#"><img src="facebookicon.png" alt="Facebook"></a>
+                    <a href="#"><img src="instagramicon.jpg" alt="Twitter"></a>
+                    <a href="#"><img src="twittericon.jpg" alt="Instagram"></a>
+                </div>
+            </div>
+        </div>
+    
+        <div class="footer-bottom">
+            © 2025 Flipkart Clone. All rights reserved.
+        </div>
+    </footer>
+</div>
+
+</body>
+</html>
